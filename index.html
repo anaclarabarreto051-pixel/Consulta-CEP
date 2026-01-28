@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descubra seu endereço pelo CEP</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@400;600&family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+    <h1>Descubra seu endereço pelo CEP</h1>
+    <div class="container">
+
+
+ 
+        <form class="row g-3" id="cepForm">
+            <div class="col-auto">
+                <label for="cep" >Digite seu CEP:</label>                
+            </div>
+            <div class="col-auto">
+                <input type="text" name="cep" required pattern="\d{5}-?\d{3}" id="cep" class="form-control" placeholder="Ex: 12345-678">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3">Buscar Endereço</button>
+            </div>
+        </form>
+
+
+
+        <table>
+            <tbody>
+                <tr>
+                    <td>Rua</td>
+                    <td id="rua"></td>
+                </tr>
+                <tr>
+                    <td>Bairro</td>
+                    <td id="bairro"></td>
+                </tr>
+                <tr>
+                    <td>Cidade</td>
+                    <td id="cidade"></td>
+                </tr>
+                <tr>
+                    <td>Estado</td>
+                    <td id="estado"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+
+</html>

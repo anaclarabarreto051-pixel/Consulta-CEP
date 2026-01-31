@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descubra seu endereço pelo CEP</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="bg-dark text-white py-3 mb-4">
+        <div class="container">
+            <h1 class="h3 mb-0">Descubra seu CEP</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Buscar CEP</h5>
+                <form class="row g-3 align-items-end" id="cepForm">
+                    <div class="col-md-6">
+                        <label for="cep" class="form-label">Digite seu CEP:</label>
+                        <input type="text" name="cep" required pattern="\d{5}-?\d{3}" id="cep" class="form-control"
+                            placeholder="Ex: 12345-678">
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-primary w-100">Buscar Endereço</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title mb-3">Resultado</h5>
+                <table class="table table-striped table-hover mb-0">
+                    <tbody>
+                        <tr>
+                            <td>Rua</td>
+                            <td id="rua"></td>
+                        </tr>
+                        <tr>
+                            <td>Bairro</td>
+                            <td id="bairro"></td>
+                        </tr>
+                        <tr>
+                            <td>Cidade</td>
+                            <td id="cidade"></td>
+                        </tr>
+                        <tr>
+                            <td>Estado</td>
+                            <td id="estado"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+<script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+</body>
+</html>

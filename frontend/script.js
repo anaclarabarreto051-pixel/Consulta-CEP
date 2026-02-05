@@ -8,85 +8,46 @@ const cidade = document.getElementById("cidade");
 const estado = document.getElementById("estado");
 const bairro = document.getElementById("bairro");
 form.addEventListener("submit", handleSubmit);
+// submit do form
 function handleSubmit(event) {
   event.preventDefault();
   const cepInput = document.getElementById("cep");
   const cep = cepInput.value.trim();
+  console.log("CEP digitado:", cep);
   if (!cep) {
-    alert("Por favor, digite um CEP válido.");
+    alert("digite um CEP válido");
     return;
   }
+  // setLoadingState(); 
+  buscarNoBackend(cep);
+}
+//  o front faz a busca no backend
+async function buscarNoBackend(cep) {
   setLoadingState();
-  buscarNoBackendCep(cep);
-}
-function buscarNoBackendCep(cep) {
-  const url = (`https://viacep.com.br/ws/${cep}/json/`)
-  fetch(url)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error("Não encontrado no banco");
-      }
-      return response.json();
-    })
-    .then(data => {
+console.log("Buscando CEP:", cep);
+  try {
+    // 1️⃣ tenta no backend
+    const backendResponse = await fetch(`${API_BASE_URL}/ceps/${cep}`);
+
+    console.log("Resposta do backend:", backendResponse);
+    if (backendResponse.ok) {
+      const data = await backendResponse.json();
       preencherResultado(data);
-    })
-    .catch(() => {
-      buscarNoViaCep(cep);
-    });
+      return; // 🔒 PARA TUDO AQUI
+    }
+
+    if (viaCepData.erro) {
+      setNotFoundState();
+      return;
+    }
+
+    preencherResultado(viaCepData);
+  } catch (error) {
+    console.error("Erro ao buscar CEP:", error);
+    setErrorState();
+  }
 }
 
-// ==============================
-// VIA CEP
-// ==============================
-function buscarNoViaCep(cep) {
-  fetch(`https://viacep.com.br/ws/${cep}/json/`)
-    .then(response => response.json())
-    .then(data => {
-      if (data.erro) {
-        setNotFoundState();
-        return;
-      }
-
-      salvarNoBackend({
-        cep: cep,
-        rua: data.logradouro,
-        bairro: data.bairro,
-        cidade: data.localidade,
-        estado: data.uf,
-      });
-    })
-    .catch(() => {
-      setErrorState();
-    });
-}
-
-// ==============================
-// POST
-// ==============================
-function salvarNoBackend(dados) {
-  fetch(`${API_BASE_URL}/enderecos`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(dados),
-  })
-    .then(response => {
-      if (!response.ok) throw new Error("Erro ao salvar no backend");
-      return response.json().catch(() => dados);
-    })
-    .then(saved => {
-      preencherResultado(saved);
-    })
-    .catch(() => {
-      setErrorState();
-    });
-}
-
-// ==============================
-// UI
-// ==============================
 function preencherResultado(data) {
   rua.innerText = data.rua || data.logradouro || "-";
   bairro.innerText = data.bairro || "-";
